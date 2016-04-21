@@ -58,10 +58,9 @@ module.exports = {
         }
         if (error) {
           auth.accessToken = null;
-          cb(error, json);
-          return;
+        } else {
+          auth.accessToken = json.access_token;
         }
-        auth.accessToken = json.access_token;
         settings.set(app.id, 'auth', auth, function() {
           emitter.emit(emitter.ACCESS_TOKEN_NOTIFY, [app, auth]);
           cb(error, json);
